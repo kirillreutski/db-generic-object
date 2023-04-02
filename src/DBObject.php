@@ -5,7 +5,7 @@ namespace kirillreutski\DbGenericObject;
 class DBObject {
     public int $id; 
     public static string $table; 
-    private static array $fields = ['id']; 
+    protected static array $fields = ['id']; 
 
     public function __construct(array $data){
         foreach (static::$fields as $field) {
