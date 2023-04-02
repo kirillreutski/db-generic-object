@@ -26,8 +26,10 @@ class DBObject {
         $fieldValues = [];
         foreach (static::$fields as $field) {
             if ($field !== 'id') {
-                $pairs[] = "$field = '" . $this->{$field} . "'";
-                $fieldValues[$field] = $this->{$field};
+                if (isset($this->{$field})) {
+                    $pairs[] = "$field = '" . $this->{$field} . "'";
+                    $fieldValues[$field] = $this->{$field};
+                }
             }
                 
         }
