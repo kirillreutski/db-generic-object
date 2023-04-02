@@ -1,0 +1,14 @@
+{
+    "name": "kirillreutski/db-generic-object",
+    "autoload": {
+        "psr-4": {
+            "kirillreutski\\DbGenericObject\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "kirillreutski"
+        }
+    ],
+    "require": {}
+}
