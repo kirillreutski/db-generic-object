@@ -42,10 +42,13 @@ class DBObject {
         $result = static::runQuery($queryData);
     }
 
-    public function dump(){
+    public function dump() : array {
         $out = []; 
         foreach (static::$fields as $field) {
-            $out[$field] = $this->{$field};
+            if (isset($this->{$field})) {
+                $out[$field] = $this->{$field};
+            }
+
         }
 
         return $out; 
