@@ -86,7 +86,6 @@ class DBObject {
             'query' => $query, 
             'table' => static::$table, 
             'fields' => static::$fields, 
-            'id' => $id
         ];
 
         $data = static::runQuery($queryData);
