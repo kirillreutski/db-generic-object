@@ -77,6 +77,24 @@ class DBObject {
         return new static($data[0]);
     }
 
+    public static function initByX(string $fieldName, mixed $value){
+        $adjustedValue = gettype($value) == 'string' ? "'$value'" : $value;  
+        $query = "SELECT " . implode(', ', static::$fields) . " FROM " . static::$table . " WHERE $fieldName = $adjustedValue LIMIT 1"; 
+    
+        $queryData = [
+            'type' => 'SELECT', 
+            'query' => $query, 
+            'table' => static::$table, 
+            'fields' => static::$fields, 
+            'id' => $id
+        ];
+
+        $data = static::runQuery($queryData);
+        return new static($data[0]);
+    }
+
+    
+
     
 
     public static function runQuery(array $queryData){
