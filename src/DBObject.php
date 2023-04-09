@@ -24,6 +24,7 @@ class DBObject {
 
         $pairs = []; 
         $fieldValues = [];
+
         foreach (static::$fields as $field) {
             if ($field !== 'id') {
                 if (isset($this->{$field})) {
@@ -39,15 +40,28 @@ class DBObject {
             }
                 
         }
-        $query = "UPDATE " . static::$table . " SET " . implode(', ', $pairs) . " WHERE id = " . $this->id . " LIMIT 1"; 
-        $queryData = [
-            'type' => 'UPDATE', 
-            'query' => $query, 
-            'table' => static::$table, 
-            'fieldValues' => $fieldValues, 
-            'id' => $this->id
-        ];
+
+        if (!isset($this->id)) {
+            $query = "INSERT into " . static::$table . " SET " . implode(', ', $pairs);
+            $queryData = [
+                'type' => 'INSERT',
+                'query' => $query,
+                'table' => static::$table,
+                'fieldValues' => $fieldValues,
+            ];
+        } else {
+            $query = "UPDATE " . static::$table . " SET " . implode(', ', $pairs) . " WHERE id = " . $this->id . " LIMIT 1";
+            $queryData = [
+                'type' => 'UPDATE',
+                'query' => $query,
+                'table' => static::$table,
+                'fieldValues' => $fieldValues,
+                'id' => $this->id
+            ];
+        }
+
         $result = static::runQuery($queryData);
+        return $result; 
     }
 
     public function dump() : array {
